@@ -1,1 +1,1 @@
-local M = require 'lua.init'
+local M = require 'init'
