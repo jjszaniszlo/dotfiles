@@ -90,7 +90,7 @@ return {
     end
   },
 
-  {
+  { -- which-key
     "folke/which-key.nvim",
     config = function()
       vim.o.timeout = true
@@ -111,14 +111,22 @@ return {
   },
 
   { -- telescope
-    'nvim-telescope/telescope.nvim', tag = '0.1.1',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    "nvim-telescope/telescope.nvim", tag = "0.1.1",
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      require('telescope').setup{}      
+      require("telescope").setup{}      
     end,
     keys = {
       { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Telescope find files" },
       { "<leader>gf", "<cmd>Telescope git_files<cr>", desc = "Telescope find files" },
     },
+  },
+
+  { -- fzf native for telescope
+    "nvim-telescope/telescope-fzf-native.nvim",
+    build = "make",
+    cond = function()
+      return vim.fn.executable "make" == 1
+    end,
   },
 }
