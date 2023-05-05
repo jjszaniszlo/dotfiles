@@ -117,8 +117,15 @@ return {
       require("telescope").setup{}      
     end,
     keys = {
-      { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Telescope find files" },
-      { "<leader>gf", "<cmd>Telescope git_files<cr>", desc = "Telescope find files" },
+      { "<leader>pf", "<cmd>Telescope find_files<cr>", desc = "Telescope find files" },
+      { "<C-p>", "<cmd>Telescope git_files<cr>", desc = "Telescope find files" },
+      { -- from prime
+        "<leader>ps", 
+        function()
+          require("telescope.builtin").grep_string{ search = vim.fn.input("grep > ") }
+        end,
+        desc = "Telescope Grep String",
+      }
     },
   },
 

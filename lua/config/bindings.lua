@@ -3,4 +3,6 @@ local function mapn(lhs, rhs, opts)
   vim.keymap.set("n", lhs, rhs, opts)
 end
 
-mapn("<leader><Space>", "<cmd>noh<cr>", { desc = "No Highlight" })
+mapn("<leader>n", "<cmd>noh<cr>", { desc = "No Highlight" })
+
+mapn("<leader>pv", vim.cmd.Ex, { desc = "NetRW Explore" })
