@@ -109,4 +109,16 @@ return {
       },
     },
   },
+
+  { -- telescope
+    'nvim-telescope/telescope.nvim', tag = '0.1.1',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      require('telescope').setup{}      
+    end,
+    keys = {
+      { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Telescope find files" },
+      { "<leader>gf", "<cmd>Telescope git_files<cr>", desc = "Telescope find files" },
+    },
+  },
 }

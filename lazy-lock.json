@@ -4,5 +4,7 @@
   "lualine.nvim": { "branch": "master", "commit": "05d78e9fd0cdfb4545974a5aa14b1be95a86e9c9" },
   "nvim-treesitter": { "branch": "master", "commit": "54741de02c18fae1b33d2b0da36f5ef946712073" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "5632f926833493bf44de3d0c214169a062b068df" },
+  "plenary.nvim": { "branch": "master", "commit": "9ac3e9541bbabd9d73663d757e4fe48a675bb054" },
+  "telescope.nvim": { "branch": "master", "commit": "c1a2af0af69e80e14e6b226d3957a064cd080805" },
   "which-key.nvim": { "branch": "main", "commit": "af8f26bfbb61b5f722c9fbc72b296dc9db0bcfdc" }
 }
