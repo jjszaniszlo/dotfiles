@@ -1,1 +1,1 @@
-local M = require 'init'
+ require 'init'

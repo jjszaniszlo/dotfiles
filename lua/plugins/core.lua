@@ -2,6 +2,7 @@ return {
   {
     -- kanagawa
     "rebelot/kanagawa.nvim",
+    priority = 1000,
     config = function()
       require("kanagawa").setup {
         overrides = function(colors)
@@ -47,6 +48,8 @@ return {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
+      "RRethy/nvim-treesitter-endwise",
+      "windwp/nvim-ts-autotag",
     },
     build = ":TSUpdate",
     config = function()
@@ -56,7 +59,6 @@ return {
 
         -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
         auto_install = false,
-
         highlight = { enable = true },
         indent = { enable = true, disable = { "python" } },
         incremental_selection = {
@@ -112,6 +114,12 @@ return {
             },
           },
         },
+        autotag = {
+          enable = true,
+        },
+        endwise = {
+          enable = true,
+        },
       }
     end
   },
@@ -166,6 +174,17 @@ return {
     build = "make",
     cond = function()
       return vim.fn.executable "make" == 1
+    end,
+  },
+
+  { -- autopairs
+    "windwp/nvim-autopairs",
+    dependencies = "nvim-treesitter",
+    config = function()
+      require("nvim-autopairs").setup {
+        check_ts = true,
+      }
+      require("nvim-autopairs").add_rules(require "nvim-autopairs.rules.endwise-lua")
     end,
   },
 }
