@@ -1,8 +1,31 @@
 return {
-  { -- kanagawa
+  {
+    -- kanagawa
     "rebelot/kanagawa.nvim",
     config = function()
       require("kanagawa").setup {
+        overrides = function(colors)
+          local theme = colors.theme
+          return {
+            Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 },
+            PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
+            PmenuSbar = { bg = theme.ui.bg_m1 },
+            PmenuThumb = { bg = theme.ui.bg_p2 },
+            TelescopeTitle = { fg = theme.ui.special, bold = true },
+            TelescopePromptNormal = { bg = theme.ui.bg_p1 },
+            TelescopePromptBorder = { fg = theme.ui.bg_p1, bg = theme.ui.bg_p1 },
+            TelescopeResultsNormal = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m1 },
+            TelescopeResultsBorder = { fg = theme.ui.bg_m1, bg = theme.ui.bg_m1 },
+            TelescopePreviewNormal = { bg = theme.ui.bg_dim },
+            TelescopePreviewBorder = { bg = theme.ui.bg_dim, fg = theme.ui.bg_dim },
+            NormalFloat = { bg = "none" },
+            FloatBorder = { bg = "none" },
+            FloatTitle = { bg = "none" },
+            NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
+            LazyNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
+            MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
+          }
+        end,
         colors = {
           theme = {
             all = {
@@ -14,10 +37,13 @@ return {
         },
       }
       vim.cmd.colorscheme("kanagawa")
+      vim.api.nvim_set_hl(0, "Normal", { bg = "None" })
+      vim.api.nvim_set_hl(0, "NormalFloat", { bg = "None" })
     end,
   },
 
-  { -- tree-sitter
+  {
+    -- tree-sitter
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
@@ -90,16 +116,18 @@ return {
     end
   },
 
-  { -- which-key
+  {
+    -- which-key
     "folke/which-key.nvim",
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
-      require("which-key").setup{}
+      require("which-key").setup {}
     end,
   },
 
-  { -- lualine
+  {
+    -- lualine
     "nvim-lualine/lualine.nvim",
     opts = {
       options = {
@@ -110,26 +138,30 @@ return {
     },
   },
 
-  { -- telescope
-    "nvim-telescope/telescope.nvim", tag = "0.1.1",
+  {
+    -- telescope
+    "nvim-telescope/telescope.nvim",
+    tag = "0.1.1",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      require("telescope").setup{}      
+      require("telescope").setup {}
     end,
     keys = {
       { "<leader>pf", "<cmd>Telescope find_files<cr>", desc = "Telescope find files" },
-      { "<C-p>", "<cmd>Telescope git_files<cr>", desc = "Telescope find files" },
-      { -- from prime
-        "<leader>ps", 
+      { "<C-p>",      "<cmd>Telescope git_files<cr>",  desc = "Telescope find files" },
+      {
+        -- from prime
+        "<leader>ps",
         function()
-          require("telescope.builtin").grep_string{ search = vim.fn.input("grep > ") }
+          require("telescope.builtin").grep_string { search = vim.fn.input("grep > ") }
         end,
         desc = "Telescope Grep String",
       }
     },
   },
 
-  { -- fzf native for telescope
+  {
+    -- fzf native for telescope
     "nvim-telescope/telescope-fzf-native.nvim",
     build = "make",
     cond = function()
