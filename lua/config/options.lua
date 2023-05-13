@@ -27,6 +27,11 @@ opt.scrolloff      = 7
 opt.sidescrolloff  = 5
 opt.wrap           = false
 
+vim.o.foldcolumn = '1'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
 -- Persistent Undo
 
 opt.undofile   = true
