@@ -260,18 +260,19 @@ return {
     end,
   },
   {
+    -- ufo
     'kevinhwang91/nvim-ufo',
     dependencies = 'kevinhwang91/promise-async',
     config = function()
       require('ufo').setup({
         provider_selector = function(bufnr, filetype, buftype)
           return { 'treesitter', 'indent' }
-        end
+        end,
       })
     end,
     keys = {
       { "zR", "<cmd>lua require('ufo').openAllFolds<cr>",  desc = { "UFO Open All Folds" } },
       { "zM", "<cmd>lua require('ufo').closeAllFolds<cr>", desc = { "UFO Open All Folds" } },
     }
-  }
+  },
 }
