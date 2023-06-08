@@ -27,12 +27,15 @@ return {
           "saadparwaiz1/cmp_luasnip",
         },
       },
+      { "lukas-reineke/lsp-format.nvim" },
     },
     config = function()
       local lsp = require('lsp-zero').preset({})
+      require("lsp-format").setup {}
 
       lsp.on_attach(function(client, bufnr)
         lsp.default_keymaps({ buffer = bufnr })
+        require("lsp-format").on_attach(client)
       end)
 
       require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
@@ -40,7 +43,7 @@ return {
       lsp.setup()
 
       -- zig
-      require('lspconfig').zls.setup{}
+      require('lspconfig').zls.setup {}
 
       local cmp = require('cmp')
       local cmp_action = require('lsp-zero').cmp_action()
@@ -95,5 +98,5 @@ return {
       { "<space>q", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Diagnostic Set Local List" },
     }
   },
-  { "onsails/lspkind.nvim" }
+  { "onsails/lspkind.nvim" },
 }
