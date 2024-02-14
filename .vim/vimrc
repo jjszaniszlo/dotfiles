@@ -1,0 +1,15 @@
+set ruler               " Show row and column ruler information 
+set undolevels=1000     " Number of undo levels
+
+set autoindent          " Auto-indent new lines
+set expandtab           " use spaces instead of tabs
+set shiftwidth=4        " Number of auto-indent spaces
+set smartindent         " Enable smart-indent
+set smarttab            " Enable smart-tabs
+set softtabstop=4       " Number of spaces per Tab
+
+set belloff=all         " Disable annoying bells
+set vb t_vb=            " 
+
+set number
+set relativenumber

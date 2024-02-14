@@ -1,0 +1,3 @@
+[[language]]
+name = "c-sharp"
+language-server = { command = "/Users/jjszaniszlo/.local/share/nvim/mason/bin/omnisharp", args = ["--languageserver"] }
