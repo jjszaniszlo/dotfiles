@@ -37,5 +37,3 @@ opt.undofile         = true
 opt.undodir          = os.getenv('HOME') .. '/.cache/nvim/undo'
 opt.undolevels       = 1000
 opt.undoreload       = 10000
-
-vim.cmd('autocmd BufWinEnter * :set formatoptions-=c formatoptions-=r formatoptions-=o')
