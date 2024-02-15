@@ -5,7 +5,7 @@ config.color_scheme = 'Kanagawa (Gogh)'
 config.default_prog = { '/opt/homebrew/bin/fish', '-l' }
 config.window_background_opacity = 0.8
 config.macos_window_background_blur = 80
-config.font_size = 25
+config.font_size = 22
 config.dpi = 144
 
 -- tabs
