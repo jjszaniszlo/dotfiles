@@ -3,3 +3,5 @@ if status is-interactive
 end
 
 alias nvcfg="cd ~/.config/nvim && nvim ."
+
+alias ls="eza"

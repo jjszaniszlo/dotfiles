@@ -1,3 +1,2 @@
 cmd - return : /Applications/WezTerm.app/Contents/MacOS/wezterm
 cmd - i : /Applications/Safari.app/Contents/MacOS/Safari
-cmd - f : /Applications/WezTerm.app/Contents/MacOS/wezterm start -- ranger ~
