@@ -1,0 +1,3 @@
+local KanagawaOptions = {}
+
+return KanagawaOptions
