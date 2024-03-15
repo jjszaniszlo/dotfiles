@@ -1,1 +1,1 @@
-JUI_statusline = require "jui.statusline"
+-- JUI_statusline = require "jui.statusline"
