@@ -19,8 +19,7 @@ M.conform = {
 		c = { "clang_format" },
 		zig = { "zigfmt" },
 	},
-    formatters = {
-    }
+    formatters = {},
 }
 
 -- return empty tables for misc plugins that do not have a config in here
