@@ -45,6 +45,9 @@ local Plugins = {
 				{
 					"rcarriga/nvim-dap-ui",
 					opts = require("plugins.config.dap").dap_ui,
+                    dependencies = {
+                        "nvim-neotest/nvim-nio"
+                    },
 				},
 			},
 			keys = { "<leader>d", "<leader>b", "<F5>", "<F10>", "<F11>", "<F12>" },
