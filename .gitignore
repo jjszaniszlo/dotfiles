@@ -2,16 +2,18 @@
 
 vim/.vim/.netrwhist
 
-# emacs/.emacs.d/*/*.*
-# !emacs/.emacs.d/lisp/*/*.*
-# !emacs/.emacs.d/themes/*/*.*
-# !emacs/.emacs.d/config.org
-# !emacs/.emacs.d/custom.el
-# !emacs/.emacs.d/early-init.el
-# !emacs/.emacs.d/init.el
-# !emacs/.emacs.d/post-early-init.el
-# !emacs/.emacs.d/post-init.el
-# !emacs/.emacs.d/pre-early-init.el
+emacs/.emacs.d/**/*.*
+!emacs/.emacs.d/lisp
+!emacs/.emacs.d/lisp/**/*.*
+!emacs/.emacs.d/themes
+!emacs/.emacs.d/themes/**/*.*
+!emacs/.emacs.d/config.org
+!emacs/.emacs.d/custom.el
+!emacs/.emacs.d/early-init.el
+!emacs/.emacs.d/init.el
+!emacs/.emacs.d/post-early-init.el
+!emacs/.emacs.d/post-init.el
+!emacs/.emacs.d/pre-early-init.el
 
 *~
 \#*\#
