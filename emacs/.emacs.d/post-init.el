@@ -63,7 +63,7 @@
   (find-font (font-spec :name font-name)))
 
 (let ((mono-spaced-font "VictorMono Nerd Font")
-      (proportionately-spaced-font "iA Writer Duo V"))
+      (proportionately-spaced-font "iA Writer Duo S"))
   (set-face-attribute 'default nil :family mono-spaced-font :height 220)
   (set-face-attribute 'fixed-pitch nil :family mono-spaced-font :height 1.0)
   (set-face-attribute 'variable-pitch nil :family proportionately-spaced-font :height 0.8))
