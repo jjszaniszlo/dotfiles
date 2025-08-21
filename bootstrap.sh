@@ -22,6 +22,10 @@ echo "Stowing Ghostty..."
 mkdir -p $HOME/.config/ghostty
 stow ghostty -t $HOME/.config/ghostty
 
+echo "Stowing Godot..."
+mkdir -p $HOME/.config/godot
+stow godot -t $HOME/.config/godot
+
 echo "Stowing Vim...";
 stow vim;
 
