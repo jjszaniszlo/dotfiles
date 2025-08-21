@@ -186,6 +186,18 @@ The DWIM behaviour of this command is as follows:
 
 (use-package darkroom)
 
+(use-package vterm
+  :defer t
+  :commands vterm
+  :bind (("C-c t" . vterm))
+  :config
+  ;; Speed up vterm
+  (setq vterm-timer-delay 0.01)
+  ;; Free up F7-F9 to be used for popper mode
+  (define-key vterm-mode-map (kbd "<f7>") nil)
+  (define-key vterm-mode-map (kbd "<f8>") nil)
+  (define-key vterm-mode-map (kbd "<f9>") nil))
+
 (defun reload-init-file ()
   "Reload the user's init file."
   (interactive)

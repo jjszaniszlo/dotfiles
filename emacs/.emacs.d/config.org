@@ -492,6 +492,23 @@ Add custom words to ~prog-mode~.
 #+begin_src elisp :tangle post-init.el
   (use-package darkroom)
 #+end_src
+** Terminal emulator (vterm)
+
+[[https://github.com/akermu/emacs-libvterm][Emacs-libvterm]] is fully-fledged terminal emulator. It requires [[https://github.com/akermu/emacs-libvterm?tab=readme-ov-file#shell-side-configuration][shell-side configuration]] in ~.zshrc~.
+
+#+begin_src elisp :tangle post-init.el
+  (use-package vterm
+    :defer t
+    :commands vterm
+    :bind (("C-c t" . vterm))
+    :config
+    ;; Speed up vterm
+    (setq vterm-timer-delay 0.01)
+    ;; Free up F7-F9 to be used for popper mode
+    (define-key vterm-mode-map (kbd "<f7>") nil)
+    (define-key vterm-mode-map (kbd "<f8>") nil)
+    (define-key vterm-mode-map (kbd "<f9>") nil))
+#+end_src
 * Other
 ** Reload Init
 

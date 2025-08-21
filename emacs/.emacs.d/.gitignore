@@ -3,3 +3,4 @@ etc
 elpa
 tree-sitter
 saveplace
+custom.el
