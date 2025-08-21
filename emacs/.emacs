@@ -1,6 +1,4 @@
 (setq custom-file "~/.emacs.custom.el")
-(package-initialize)
-(package-refresh-contents)
 
 (add-to-list 'load-path "~/.emacs.local/")
 
@@ -26,6 +24,13 @@
 
 (setq vc-follow-symlinks t)
 
+;; path
+(rc/require 'exec-path-from-shell)
+(when (memq window-system '(mac ns x))
+          (exec-path-from-shell-initialize))
+
+;; theme
+(rc/require 'autothemer)
 (require 'kanagawa-theme)
 (load-theme 'kanagawa t)
 
@@ -48,7 +53,7 @@
 ;; lsp-mode
 (setq lsp-headerline-breadcrumb-enable nil)
 (setq lsp-keymap-prefix "C-c l")
-(require 'lsp-mode)
+(rc/require 'lsp-mode)
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
@@ -59,17 +64,17 @@
 (add-hook 'odin-mode-hook #'flycheck-mode)
  
 ;;; dired
-(require 'dired-x)
-(setq dired-omit-files
-      (concat dired-omit-files "\\|^\\..+$"))
 (setq-default dired-dwim-target t)
 (setq dired-listing-switches "-alh")
 (setq dired-mouse-drag-files t)
+(require 'dired-x)
+(setq dired-omit-files
+      (concat dired-omit-files "\\|^\\..+$"))
 
 ;;; helm
-(rc/require 'helm)
-
 (setq helm-ff-transformer-show-only-basename nil)
+
+(rc/require 'helm)
 
 (global-set-key (kbd "C-c h t") 'helm-cmd-t)
 (global-set-key (kbd "C-c h g g") 'helm-git-grep)
@@ -80,11 +85,14 @@
 
 ;;; Move Text
 (rc/require 'move-text)
+
 (global-set-key (kbd "M-p") 'move-text-up)
 (global-set-key (kbd "M-n") 'move-text-down)
 
 ;;; magit
 (setq magit-auto-revert-mode nil)
+
+(rc/require 'magit)
 
 (global-set-key (kbd "C-c m s") 'magit-status)
 (global-set-key (kbd "C-c m l") 'magit-log)

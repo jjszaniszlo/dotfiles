@@ -1,5 +1,7 @@
+(require 'package)
 (add-to-list 'package-archives 
     '("MELPA" . "http://melpa.org/packages/") t)
+(package-initialize)
 
 (defvar rc/package-contents-refreshed nil)
 
