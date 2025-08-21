@@ -12,10 +12,6 @@ require_program() {
 
 require_program stow
 
-echo "Copying zsh/omz-plugins to $HOME/.oh-my-zsh/custom..."
-
-cp -a zsh/omz-plugins/. zsh/.oh-my-zsh/custom/plugins/
-
 echo "Stowing Dotfiles...";
 
 stow emacs
