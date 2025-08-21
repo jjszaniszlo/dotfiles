@@ -1,0 +1,23 @@
+export PATH="$PATH:/home/jjszaniszlo/.local/share/JetBrains/Toolbox/scripts"
+export PATH=${PATH}:`go env GOPATH`/bin
+export ODIN_ROOT="$HOME/odin/odin-nightly+2025-07-15"
+
+export DOTNET_CLI_TELEMETRY_OPTOUT=1 # Disable analytics
+export DOTNET_ROLL_FORWARD_TO_PRERELEASE=1
+
+alias nugetclean="dotnet nuget locals --clear all"
+
+case ":${PATH}:" in
+    *:"$HOME/.config/godotenv/godot/bin":*)
+        ;;
+    *)
+        # Prepending path making it the highest in priority.
+        export PATH="$HOME/.config/godotenv/godot/bin:$PATH"
+        ;;
+    esac
+
+if [ -z "${GODOT:-}" ]; then  # If variable not defined or empty.
+    export GODOT="$HOME/.config/godotenv/godot/bin/godot"
+fi
+
+. "$HOME/.cargo/env"
