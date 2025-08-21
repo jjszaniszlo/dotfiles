@@ -151,6 +151,8 @@ The DWIM behaviour of this command is as follows:
 
 (use-package nix-mode)
 
+(require 'odin-mode)
+
 (use-package treesit-auto
   :custom
   (treesit-auto-install 'prompt)

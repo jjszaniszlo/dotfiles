@@ -423,6 +423,11 @@ Highlight diffs in files
   (use-package nix-mode)
 #+end_src
 
+Local file-mode packages
+#+begin_src elisp :tangle post-init.el
+  (require 'odin-mode)
+#+end_src
+
 ** Use tree-sitter
 
 #+begin_src elisp :tangle post-init.el
@@ -487,7 +492,6 @@ Add custom words to ~prog-mode~.
 #+begin_src elisp :tangle post-init.el
   (use-package darkroom)
 #+end_src
-
 * Other
 ** Reload Init
 
