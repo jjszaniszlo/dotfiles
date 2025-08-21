@@ -22,7 +22,7 @@ export PATH="$PATH:$HOME/.local/bin"
 
 # Example using a case statement for different hostnames
 case "$(hostname)" in
-    "poseidon")
+    "poseidon.local")
         # Poseidon settings
         source $HOME/.zshrc-poseidon
         ;;
