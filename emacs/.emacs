@@ -23,11 +23,17 @@
 (setq display-line-numbers-type 'relative)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode `column-number-mode)
 
+(setq vc-follow-symlinks t)
+
 (require 'kanagawa-theme)
 (load-theme 'kanagawa t)
 
 ;; font
-(set-frame-font "Victor Mono NF" nil t)
+(defun font-exists-p (font) (if (null (x-list-fonts font)) nil t))
+(when (window-system)
+  (cond ((font-exists-p "VictorMono NF") (set-frame-font "VictorMono NF" nil t))
+    ((font-exists-p "VictorMono Nerd Font") (set-frame-font "VictorMono Nerd Font" nil t))))
+
 (set-face-attribute 'default nil :height 220)
 
 ;; ido
