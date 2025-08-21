@@ -1,3 +1,7 @@
+# Created by https://www.toptal.com/developers/gitignore/api/emacs
+# Edit at https://www.toptal.com/developers/gitignore?templates=emacs
+
+### Emacs ###
 # -*- mode: gitignore; -*-
 *~
 \#*\#
@@ -23,7 +27,7 @@ tramp
 /elpa/
 
 # reftex files
-.rel
+*.rel
 
 # AUCTeX auto folder
 /auto/
@@ -46,3 +50,7 @@ flycheck_*.el
 
 # network security
 /network-security.data
+
+
+# End of https://www.toptal.com/developers/gitignore/api/emacs
+
