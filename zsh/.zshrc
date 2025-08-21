@@ -1,3 +1,5 @@
+ZSH_CUSTOM=$HOME/.dotfiles/zsh/omz-custom
+
 export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="gnzh"
