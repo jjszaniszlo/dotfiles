@@ -1,2 +1,4 @@
 # Mac specific zsh
 export PATH="/opt/homebrew/bin:$PATH"
+
+alias ec="emacsclient -nc"
