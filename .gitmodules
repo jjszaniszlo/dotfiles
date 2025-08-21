@@ -16,3 +16,36 @@
 [submodule "zsh/omz-custom/plugins/zsh-eza"]
 	path = zsh/omz-custom/plugins/zsh-eza
 	url = https://github.com/z-shell/zsh-eza.git
+[submodule "vim/.vim/pack/plugins/start/vim-polyglot"]
+	path = vim/.vim/pack/plugins/start/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot
+[submodule "vim/.vim/pack/stt/start/ack.vim"]
+	path = vim/.vim/pack/stt/start/ack.vim
+	url = https://github.com/mileszs/ack.vim
+[submodule "vim/.vim/pack/tpope/start/commentary"]
+	path = vim/.vim/pack/tpope/start/commentary
+	url = https://github.com/tpope/vim-commentary.git
+[submodule "vim/.vim/pack/tpope/start/eunuch"]
+	path = vim/.vim/pack/tpope/start/eunuch
+	url = https://github.com/tpope/vim-eunuch.git
+[submodule "vim/.vim/pack/tpope/start/fugitive"]
+	path = vim/.vim/pack/tpope/start/fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "vim/.vim/pack/tpope/start/sensible"]
+	path = vim/.vim/pack/tpope/start/sensible
+	url = https://github.com/tpope/vim-sensible.git
+[submodule "vim/.vim/pack/tpope/start/surround"]
+	path = vim/.vim/pack/tpope/start/surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule "vim/.vim/pack/tpope/start/vim-flagship"]
+	path = vim/.vim/pack/tpope/start/vim-flagship
+	url = https://github.com/tpope/vim-flagship.git
+[submodule "vim/.vim/pack/tpope/start/vim-obsession"]
+	path = vim/.vim/pack/tpope/start/vim-obsession
+	url = https://github.com/tpope/vim-obsession.git
+[submodule "vim/.vim/pack/tpope/start/vim-vinegar"]
+	path = vim/.vim/pack/tpope/start/vim-vinegar
+	url = https://github.com/tpope/vim-vinegar.git
+[submodule "vim/.vim/pack/tribela/start/vim-transparent"]
+	path = vim/.vim/pack/tribela/start/vim-transparent
+	url = https://github.com/tribela/vim-transparent.git
