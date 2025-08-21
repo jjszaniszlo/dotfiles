@@ -13,18 +13,21 @@ require_program() {
 require_program stow;
 
 echo "Stowing Emacs...";
-
 stow emacs;
+
+echo "Stowing Git...";
+stow git;
+
+echo "Stowing Ghostty..."
+mkdir -p $HOME/.config/ghostty
+stow ghostty -t $HOME/.config/ghostty
+
+echo "Stowing Vim...";
+stow vim;
 
 echo "Stowing Zsh...";
 require_program bat;
 require_program eza;
 stow zsh;
-
-echo "Stowing Vim...";
-stow vim;
-
-echo "Stowing Git...";
-stow git;
 
 echo "Run source $HOME/.zshrc to reload.";
