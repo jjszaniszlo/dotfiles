@@ -10,11 +10,21 @@ require_program() {
     fi
 }
 
-require_program stow
+require_program stow;
 
-echo "Stowing Dotfiles...";
+echo "Stowing Emacs...";
 
-stow emacs
-stow zsh
+stow emacs;
 
-echo "Run source $HOME/.zshrc to reload."
+echo "Stowing Zsh...";
+require_program bat;
+require_program eza;
+stow zsh;
+
+echo "Stowing Vim...";
+stow vim;
+
+echo "Stowing Git...";
+stow git;
+
+echo "Run source $HOME/.zshrc to reload.";

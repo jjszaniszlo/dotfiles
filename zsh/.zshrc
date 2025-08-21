@@ -10,6 +10,9 @@ plugins=(
     git-commit
     git-auto-fetch
     you-should-use
+    zsh-autosuggestions
+    zsh-bat
+    zsh-eza
     zsh-syntax-highlighting
 )
 
