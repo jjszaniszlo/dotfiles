@@ -1,3 +1,5 @@
+# Desktop Linux specific zsh
+
 export PATH="$PATH:/home/jjszaniszlo/.local/share/JetBrains/Toolbox/scripts"
 export PATH=${PATH}:`go env GOPATH`/bin
 export ODIN_ROOT="$HOME/odin/odin-nightly+2025-07-15"
