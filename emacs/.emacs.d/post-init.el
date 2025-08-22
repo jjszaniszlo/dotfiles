@@ -2,8 +2,6 @@
 
 (use-package exec-path-from-shell
   :init
-  ;; Use non-interactive shell
-  (setq exec-path-from-shell-arguments nil)
   :if (memq window-system '(mac ns x))
   :hook
   (after-init . exec-path-from-shell-initialize))
@@ -166,6 +164,14 @@ The DWIM behaviour of this command is as follows:
 
 (add-hook 'prog-mode-hook 'electric-pair-mode)
 
+(use-package paredit
+  :ensure t
+  :commands paredit-mode
+  :hook
+  (emacs-lisp-mode . paredit-mode)
+  :config
+  (define-key paredit-mode-map (kbd "RET") nil))
+
 (use-package origami
   :hook (prog-mode . origami-mode))
 
@@ -185,6 +191,20 @@ The DWIM behaviour of this command is as follows:
 (add-hook 'prog-mode-hook 'fx/highlight-todo-keywords)
 
 (use-package darkroom)
+
+(use-package org
+  :commands (org-mode org-version)
+  :mode
+  ("\\.org\\'" . org-mode)
+  :custom
+  (org-hide-leading-stars t)
+  (org-startup-indented t)
+  (org-adapt-indentation nil)
+  (org-edit-src-content-indentation 0)
+  ;; (org-fontify-todo-headline t)
+  ;; (org-fontify-whole-heading-line t)
+  ;; (org-fontify-quote-and-verse-blocks t)
+  (org-startup-truncated t))
 
 (use-package vterm
   :defer t

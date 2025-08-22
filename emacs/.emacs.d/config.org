@@ -52,56 +52,56 @@ Report the startup duration and the number of garbage collections that occurred 
 Fix for [[https://github.com/d12frosted/homebrew-emacs-plus/issues/733][libgccjit.so error invoking gcc driver]] on MacOS homebrew installations
 
 #+begin_src emacs-lisp :tangle pre-early-init.el
-(defun homebrew-gcc-paths ()
-  "Return GCC library paths from Homebrew installations.
-Detects paths for gcc and libgccjit packages to be used in LIBRARY_PATH."
-  (let* ((paths '())
-         (brew-bin (or (executable-find "brew")
-                       (let ((arm-path "/opt/homebrew/bin/brew")
-                             (intel-path "/usr/local/bin/brew"))
-                         (cond
-                          ((file-exists-p arm-path) arm-path)
-                          ((file-exists-p intel-path) intel-path))))))
+  (defun homebrew-gcc-paths ()
+    "Return GCC library paths from Homebrew installations.
+  Detects paths for gcc and libgccjit packages to be used in LIBRARY_PATH."
+    (let* ((paths '())
+           (brew-bin (or (executable-find "brew")
+                         (let ((arm-path "/opt/homebrew/bin/brew")
+                               (intel-path "/usr/local/bin/brew"))
+                           (cond
+                            ((file-exists-p arm-path) arm-path)
+                            ((file-exists-p intel-path) intel-path))))))
 
-    (when brew-bin
-      ;; Get gcc paths.
-      (let* ((gcc-prefix (string-trim
-                          (shell-command-to-string
-                           (concat brew-bin " --prefix gcc"))))
-             (gcc-lib-current (expand-file-name "lib/gcc/current" gcc-prefix)))
-        (push gcc-lib-current paths)
+      (when brew-bin
+        ;; Get gcc paths.
+        (let* ((gcc-prefix (string-trim
+                            (shell-command-to-string
+                             (concat brew-bin " --prefix gcc"))))
+               (gcc-lib-current (expand-file-name "lib/gcc/current" gcc-prefix)))
+          (push gcc-lib-current paths)
 
-        ;; Find apple-darwin directory.
-        (let* ((default-directory gcc-lib-current)
-               (arch-dirs (file-expand-wildcards "gcc/*-apple-darwin*/*[0-9]")))
-          (when arch-dirs
-            (push (expand-file-name
-                   (car (sort arch-dirs #'string>)))
-                  paths))))
+          ;; Find apple-darwin directory.
+          (let* ((default-directory gcc-lib-current)
+                 (arch-dirs (file-expand-wildcards "gcc/*-apple-darwin*/*[0-9]")))
+            (when arch-dirs
+              (push (expand-file-name
+                     (car (sort arch-dirs #'string>)))
+                    paths))))
 
-      ;; Get libgccjit paths
-      (let* ((jit-prefix (string-trim
-                          (shell-command-to-string
-                           (concat brew-bin " --prefix libgccjit"))))
-             (jit-lib-current (expand-file-name "lib/gcc/current" jit-prefix)))
-        (push jit-lib-current paths)))
+        ;; Get libgccjit paths
+        (let* ((jit-prefix (string-trim
+                            (shell-command-to-string
+                             (concat brew-bin " --prefix libgccjit"))))
+               (jit-lib-current (expand-file-name "lib/gcc/current" jit-prefix)))
+          (push jit-lib-current paths)))
 
-    (nreverse paths)))
+      (nreverse paths)))
 
-(defun setup-macos-native-comp-library-paths ()
-  "Set up LIBRARY_PATH for native compilation on macOS.
-Includes Homebrew GCC paths and CommandLineTools SDK libraries."
-  (let* ((existing-paths (split-string (or (getenv "LIBRARY_PATH") "") ":" t))
-         (gcc-paths (homebrew-gcc-paths))
-         (clt-paths '("/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib"))
-         (unique-paths (delete-dups
-                        (append existing-paths gcc-paths clt-paths))))
+  (defun setup-macos-native-comp-library-paths ()
+    "Set up LIBRARY_PATH for native compilation on macOS.
+  Includes Homebrew GCC paths and CommandLineTools SDK libraries."
+    (let* ((existing-paths (split-string (or (getenv "LIBRARY_PATH") "") ":" t))
+           (gcc-paths (homebrew-gcc-paths))
+           (clt-paths '("/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib"))
+           (unique-paths (delete-dups
+                          (append existing-paths gcc-paths clt-paths))))
 
-    (setenv "LIBRARY_PATH" (mapconcat #'identity unique-paths ":"))))
+      (setenv "LIBRARY_PATH" (mapconcat #'identity unique-paths ":"))))
 
-;; Set up library paths for native compilation on macOS.
-(when (eq system-type 'darwin)
-  (setup-macos-native-comp-library-paths))
+  ;; Set up library paths for native compilation on macOS.
+  (when (eq system-type 'darwin)
+    (setup-macos-native-comp-library-paths))
 #+end_src
 
 This grabs the path from your shell.
@@ -109,8 +109,6 @@ This grabs the path from your shell.
 #+begin_src elisp :tangle post-init.el
   (use-package exec-path-from-shell
     :init
-    ;; Use non-interactive shell
-    (setq exec-path-from-shell-arguments nil)
     :if (memq window-system '(mac ns x))
     :hook
     (after-init . exec-path-from-shell-initialize))
@@ -453,6 +451,18 @@ Local file-mode packages
   (add-hook 'prog-mode-hook 'electric-pair-mode)
 #+end_src
 
+Prevent parenthesis mismatching using paredit
+
+#+begin_src elisp :tangle post-init.el
+(use-package paredit
+  :ensure t
+  :commands paredit-mode
+  :hook
+  (emacs-lisp-mode . paredit-mode)
+  :config
+  (define-key paredit-mode-map (kbd "RET") nil))
+#+end_src
+
 ** Code Folding
 Use origami for code folding
 #+begin_src elisp :tangle post-init.el
@@ -491,6 +501,25 @@ Add custom words to ~prog-mode~.
 ** Distraction Free Writing
 #+begin_src elisp :tangle post-init.el
   (use-package darkroom)
+#+end_src
+** Org mode
+
+Some org mode settings
+
+#+begin_src elisp :tangle post-init.el
+(use-package org
+  :commands (org-mode org-version)
+  :mode
+  ("\\.org\\'" . org-mode)
+  :custom
+  (org-hide-leading-stars t)
+  (org-startup-indented t)
+  (org-adapt-indentation nil)
+  (org-edit-src-content-indentation 0)
+  ;; (org-fontify-todo-headline t)
+  ;; (org-fontify-whole-heading-line t)
+  ;; (org-fontify-quote-and-verse-blocks t)
+  (org-startup-truncated t))
 #+end_src
 ** Terminal emulator (vterm)
 
