@@ -64,5 +64,5 @@ Includes Homebrew GCC paths and CommandLineTools SDK libraries."
   (setup-macos-native-comp-library-paths))
 
 (when (eq system-type 'darwin)
-  ((setenv "PATH" "/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Applications/Ghostty.app/Contents/MacOS:/Users/jjszaniszlo/.local/bin")
- (setq exec-path (split-string (getenv "PATH") path-separator))))
+  '((setenv "PATH" "/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Applications/Ghostty.app/Contents/MacOS:/Users/jjszaniszlo/.local/bin")
+    (setq exec-path (split-string (getenv "PATH") path-separator))))

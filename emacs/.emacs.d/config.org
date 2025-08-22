@@ -108,8 +108,8 @@ Set exec path to use my path for mac
 
 #+begin_src emacs-lisp :tangle pre-early-init.el
 (when (eq system-type 'darwin)
-  ((setenv "PATH" "/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Applications/Ghostty.app/Contents/MacOS:/Users/jjszaniszlo/.local/bin")
- (setq exec-path (split-string (getenv "PATH") path-separator))))
+  '((setenv "PATH" "/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Applications/Ghostty.app/Contents/MacOS:/Users/jjszaniszlo/.local/bin")
+    (setq exec-path (split-string (getenv "PATH") path-separator))))
 #+end_src
 
 This grabs the path from your shell.
@@ -509,25 +509,6 @@ Add custom words to ~prog-mode~.
 ** Distraction Free Writing
 #+begin_src elisp :tangle post-init.el
   (use-package darkroom)
-#+end_src
-** Org mode
-
-Some org mode settings
-
-#+begin_src elisp :tangle post-init.el
-(use-package org
-  :commands (org-mode org-version)
-  :mode
-  ("\\.org\\'" . org-mode)
-  :custom
-  (org-hide-leading-stars t)
-  (org-startup-indented t)
-  (org-adapt-indentation nil)
-  (org-edit-src-content-indentation 0)
-  ;; (org-fontify-todo-headline t)
-  ;; (org-fontify-whole-heading-line t)
-  ;; (org-fontify-quote-and-verse-blocks t)
-  (org-startup-truncated t))
 #+end_src
 ** Terminal emulator (vterm)
 

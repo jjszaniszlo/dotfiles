@@ -192,20 +192,6 @@ The DWIM behaviour of this command is as follows:
 
 (use-package darkroom)
 
-(use-package org
-  :commands (org-mode org-version)
-  :mode
-  ("\\.org\\'" . org-mode)
-  :custom
-  (org-hide-leading-stars t)
-  (org-startup-indented t)
-  (org-adapt-indentation nil)
-  (org-edit-src-content-indentation 0)
-  ;; (org-fontify-todo-headline t)
-  ;; (org-fontify-whole-heading-line t)
-  ;; (org-fontify-quote-and-verse-blocks t)
-  (org-startup-truncated t))
-
 (use-package vterm
   :defer t
   :commands vterm
