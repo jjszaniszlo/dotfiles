@@ -192,6 +192,21 @@ The DWIM behaviour of this command is as follows:
 
 (use-package darkroom)
 
+(use-package org
+  :ensure t
+  :commands (org-mode org-version)
+  :mode
+  ("\\.org\\'" . org-mode)
+  :custom
+  (org-startup-truncated t)
+  (org-agenda-files (list "~/Documents/Org/agenda.org"))
+  (org-export-backends '(md))
+  :bind (("C-c a" . org-agenda)
+         ("C-c l" . org-store-link)
+         ("C-c b" . org-iswitchb)))
+
+(use-package doc-view)
+
 (use-package vterm
   :defer t
   :commands vterm
