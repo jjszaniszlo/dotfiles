@@ -205,6 +205,13 @@ The DWIM behaviour of this command is as follows:
          ("C-c l" . org-store-link)
          ("C-c b" . org-iswitchb)))
 
+(use-package ob-prolog
+  :init
+  (org-babel-do-load-languages 'org-babel-load-languages
+                         (append org-babel-load-languages
+                                 '((prolog . t)))))
+(setq org-babel-prolog-command "swipl")
+
 (use-package doc-view)
 
 (use-package vterm

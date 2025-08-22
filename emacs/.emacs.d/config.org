@@ -527,6 +527,18 @@ Add custom words to ~prog-mode~.
            ("C-c b" . org-iswitchb)))
 #+end_src
 
+*** Babel languages
+
+Prolog
+#+begin_src elisp :tangle post-init.el
+  (use-package ob-prolog
+    :init
+    (org-babel-do-load-languages 'org-babel-load-languages
+                           (append org-babel-load-languages
+                                   '((prolog . t)))))
+  (setq org-babel-prolog-command "swipl")
+#+end_src
+
 ** View PDFs in Emacs!
 #+begin_src elisp :tangle post-init.el
 (use-package doc-view)
