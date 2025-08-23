@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 cd "$(dirname "$0")"
 
+OS=$(uname -s)
+
 require_program() {
     local prog="$1"
 
@@ -11,6 +13,12 @@ require_program() {
 }
 
 require_program stow;
+
+if [ "$OS" == "Darwin" ]; then
+    echo "Stowing Aerospace...";
+    mkdir -p $HOME/.config/aerospace
+    stow aerospace -t $HOME/.config/aerospace
+fi
 
 echo "Stowing Emacs...";
 stow emacs;

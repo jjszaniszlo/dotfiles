@@ -1,7 +1,5 @@
 #+TITLE: Emacs Configuration
 #+AUTHOR: John Szaniszlo
-#+STARTUP: content
-#+OPTIONS: toc:t
 
 Based on the [[https://github.com/jamescherti/minimal-emacs.d/][minimal-emacs.d]] project by James Cherti.
 
