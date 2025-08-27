@@ -10,7 +10,6 @@
 
 [core]
   editor = vim
-	excludesfile = /home/jjszaniszlo/.gitignore_global
 
 [color]
   ui = true
