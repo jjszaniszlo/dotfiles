@@ -20,6 +20,14 @@ if [ "$OS" == "Darwin" ]; then
     stow aerospace -t $HOME/.config/aerospace
 fi
 
+if [ "$OS" == "Linux" ]; then
+    echo "Stowing Kanagawa themes..";
+    mkdir -p $HOME/.themes
+    mkdir -p "$HOME/.config/gtk-4.0"
+    stow themes -t $HOME/.themes
+    cp -a "$(pwd)/themes/Kanagawa-Dark/gtk-4.0"/* "$HOME/.config/gtk-4.0/"
+fi
+
 echo "Stowing Emacs...";
 stow emacs;
 
