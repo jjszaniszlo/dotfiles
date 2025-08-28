@@ -31,6 +31,10 @@ fi
 echo "Stowing Emacs...";
 mkdir -p $HOME/.emacs.d
 stow emacs -t $HOME/.emacs.d/;
+if [ "$OS" == "Linux" ]; then
+    stow applications -t "$HOME/.local/share/applications"
+    stow local_scripts -t "$HOME/.local/bin"
+fi
 
 echo "Stowing Git...";
 stow git;

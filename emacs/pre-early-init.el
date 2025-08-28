@@ -62,3 +62,5 @@ Includes Homebrew GCC paths and CommandLineTools SDK libraries."
 ;; Set up library paths for native compilation on macOS.
 (when (eq system-type 'darwin)
   (setup-macos-native-comp-library-paths))
+
+(add-to-list 'default-frame-alist '(undecorated-round . t))
