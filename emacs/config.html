@@ -1,0 +1,1038 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-08-27 Wed 20:38 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Emacs Configuration</title>
+<meta name="author" content="John Szaniszlo" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Emacs Configuration</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgd827338">1. Basic Settings</a>
+<ul>
+<li><a href="#org79a1d4b">1.1. Init files at various init points</a></li>
+<li><a href="#orged961e8">1.2. System</a>
+<ul>
+<li><a href="#org4bd7086">1.2.1. Debugging</a></li>
+<li><a href="#orgb879edc">1.2.2. Ensure all packages are installed by default</a></li>
+<li><a href="#orgf77fccb">1.2.3. Use :demand for all packages when in daemon mode</a></li>
+<li><a href="#org4d1ea05">1.2.4. Native Compilation</a></li>
+<li><a href="#orgbd29283">1.2.5. Display startup time</a></li>
+<li><a href="#orgb83a6c5">1.2.6. <code>PATH</code></a></li>
+</ul>
+</li>
+<li><a href="#org5666652">1.3. Reduce clutter</a></li>
+<li><a href="#orgbe2bdc4">1.4. Activate <code>recentf</code>, <code>savehist</code>, <code>saveplace</code>, and <code>auto-revert</code></a></li>
+<li><a href="#org7c69ab9">1.5. dir-config.el for Local configs</a></li>
+</ul>
+</li>
+<li><a href="#org461e12b">2. Look and Feel</a>
+<ul>
+<li><a href="#orge477b3e">2.1. ultra-scroll</a></li>
+<li><a href="#org1edcbbf">2.2. Theming</a>
+<ul>
+<li><a href="#org5c2d436">2.2.1. the wonderful kanagawa themes</a></li>
+<li><a href="#org74f42b9">2.2.2. auto switch between light and dark modes</a></li>
+</ul>
+</li>
+<li><a href="#org5f253c1">2.3. Fonts</a>
+<ul>
+<li><a href="#org51d6b6c">2.3.1. Font bootstrapping</a></li>
+<li><a href="#orgc86a78a">2.3.2. Mixed pitch</a></li>
+</ul>
+</li>
+<li><a href="#org8e06500">2.4. Highlight Comment Annotations</a></li>
+<li><a href="#org55037ba">2.5. Keep window sizes reasonable</a></li>
+<li><a href="#org8f2cb5a">2.6. Cursor settings</a>
+<ul>
+<li><a href="#orgc2f0bc9">2.6.1. Adaptive cursor width</a></li>
+<li><a href="#orgf679181">2.6.2. Box cursor</a></li>
+</ul>
+</li>
+<li><a href="#org90d7f26">2.7. Line numbers</a></li>
+<li><a href="#orgf26f3c7">2.8. Text wrapping</a></li>
+<li><a href="#orgc746a06">2.9. Highlight line</a></li>
+<li><a href="#org2a7cd7c">2.10. Underlines</a></li>
+</ul>
+</li>
+<li><a href="#org1a720b6">3. Interface</a>
+<ul>
+<li><a href="#orga1c6559">3.1. Use ibuffer instead of list-buffers</a></li>
+<li><a href="#org0a41685">3.2. Always use <code>y</code> and <code>n</code> as answers.</a></li>
+<li><a href="#org70cafd4">3.3. Make C-g a bit more helpful</a></li>
+<li><a href="#org58a15e5">3.4. Which-Key</a></li>
+<li><a href="#org782aa5b">3.5. Interactive Do</a></li>
+<li><a href="#org10fcdec">3.6. Org-mode customizations</a>
+<ul>
+<li><a href="#org3467d6a">3.6.1. Setup and bindings</a></li>
+<li><a href="#orge0794bc">3.6.2. Distraction free writing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org6254290">4. Development/Workspace</a>
+<ul>
+<li><a href="#orgd5e1833">4.1. Magit</a>
+<ul>
+<li><a href="#org8aea174">4.1.1. Usage and configs</a></li>
+<li><a href="#org7a6895e">4.1.2. MacOS speedup</a></li>
+<li><a href="#orgb7fd166">4.1.3. Highlight diffs in files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgdd3e3ee">5. Other</a>
+<ul>
+<li><a href="#org9352bf7">5.1. Reload Init</a></li>
+</ul>
+</li>
+<li><a href="#orgce9c22c">6. tangle post-init.el on save</a></li>
+</ul>
+</div>
+</div>
+<p>
+Based on the <a href="https://github.com/jamescherti/minimal-emacs.d/">minimal-emacs.d</a> project by James Cherti.
+</p>
+<div id="outline-container-orgd827338" class="outline-2">
+<h2 id="orgd827338"><span class="section-number-2">1.</span> Basic Settings</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org79a1d4b" class="outline-3">
+<h3 id="org79a1d4b"><span class="section-number-3">1.1.</span> Init files at various init points</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Prevent config files from being byte-compiled and to activate lexical binding as <a href="https://github.com/jamescherti/minimal-emacs.d?tab=readme-ov-file#customizations-never-modify-initel-and-early-initel-modify-these-instead">required by minimal-emacs.d</a>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">;;; pre-early-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">;;; post-early-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orged961e8" class="outline-3">
+<h3 id="orged961e8"><span class="section-number-3">1.2.</span> System</h3>
+<div class="outline-text-3" id="text-1-2">
+</div>
+<div id="outline-container-org4bd7086" class="outline-4">
+<h4 id="org4bd7086"><span class="section-number-4">1.2.1.</span> Debugging</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defvar minimal-emacs-debug nil
+  "Non-nil to enable debug.")
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb879edc" class="outline-4">
+<h4 id="orgb879edc"><span class="section-number-4">1.2.2.</span> Ensure all packages are installed by default</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq use-package-always-ensure t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf77fccb" class="outline-4">
+<h4 id="orgf77fccb"><span class="section-number-4">1.2.3.</span> Use :demand for all packages when in daemon mode</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(if (daemonp)
+    (setq use-package-always-demand t))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4d1ea05" class="outline-4">
+<h4 id="org4d1ea05"><span class="section-number-4">1.2.4.</span> Native Compilation</h4>
+<div class="outline-text-4" id="text-1-2-4">
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package compile-angel
+ :ensure t
+ :custom
+ (compile-angel-verbose t)
+
+ :config
+ (push "/init.el" compile-angel-excluded-files)
+ (push "/early-init.el" compile-angel-excluded-files)
+ (push "/pre-init.el" compile-angel-excluded-files)
+ (push "/post-init.el" compile-angel-excluded-files)
+ (push "/pre-early-init.el" compile-angel-excluded-files)
+ (push "/post-early-init.el" compile-angel-excluded-files)
+
+ (compile-angel-on-load-mode 1))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgbd29283" class="outline-4">
+<h4 id="orgbd29283"><span class="section-number-4">1.2.5.</span> Display startup time</h4>
+<div class="outline-text-4" id="text-1-2-5">
+<p>
+Report the startup duration and the number of garbage collections that occurred during initialization.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun display-startup-time ()
+  "Display the startup time and number of garbage collections."
+  (message "Emacs init loaded in %.2f seconds (Full emacs-startup: %.2fs) with %d garbage collections."
+           (float-time (time-subtract after-init-time before-init-time))
+           (time-to-seconds (time-since before-init-time))
+           gcs-done))
+
+(add-hook 'emacs-startup-hook #'display-startup-time 100)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb83a6c5" class="outline-4">
+<h4 id="orgb83a6c5"><span class="section-number-4">1.2.6.</span> <code>PATH</code></h4>
+<div class="outline-text-4" id="text-1-2-6">
+</div>
+<ol class="org-ol">
+<li><a id="orgc77082a"></a>MacOS specific path fix for libgccjit<br />
+<div class="outline-text-5" id="text-1-2-6-1">
+<p>
+Fix for <a href="https://github.com/d12frosted/homebrew-emacs-plus/issues/733">libgccjit.so error invoking gcc driver</a> on MacOS homebrew installations
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun homebrew-gcc-paths ()
+  "Return GCC library paths from Homebrew installations.
+Detects paths for gcc and libgccjit packages to be used in LIBRARY_PATH."
+  (let* ((paths '())
+         (brew-bin (or (executable-find "brew")
+                       (let ((arm-path "/opt/homebrew/bin/brew")
+                             (intel-path "/usr/local/bin/brew"))
+                         (cond
+                          ((file-exists-p arm-path) arm-path)
+                          ((file-exists-p intel-path) intel-path))))))
+
+    (when brew-bin
+      ;; Get gcc paths.
+      (let* ((gcc-prefix (string-trim
+                          (shell-command-to-string
+                           (concat brew-bin " --prefix gcc"))))
+             (gcc-lib-current (expand-file-name "lib/gcc/current" gcc-prefix)))
+        (push gcc-lib-current paths)
+
+        ;; Find apple-darwin directory.
+        (let* ((default-directory gcc-lib-current)
+               (arch-dirs (file-expand-wildcards "gcc/*-apple-darwin*/*[0-9]")))
+          (when arch-dirs
+            (push (expand-file-name
+                   (car (sort arch-dirs #'string&gt;)))
+                  paths))))
+
+      ;; Get libgccjit paths
+      (let* ((jit-prefix (string-trim
+                          (shell-command-to-string
+                           (concat brew-bin " --prefix libgccjit"))))
+             (jit-lib-current (expand-file-name "lib/gcc/current" jit-prefix)))
+        (push jit-lib-current paths)))
+
+    (nreverse paths)))
+
+(defun setup-macos-native-comp-library-paths ()
+  "Set up LIBRARY_PATH for native compilation on macOS.
+Includes Homebrew GCC paths and CommandLineTools SDK libraries."
+  (let* ((existing-paths (split-string (or (getenv "LIBRARY_PATH") "") ":" t))
+         (gcc-paths (homebrew-gcc-paths))
+         (clt-paths '("/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib"))
+         (unique-paths (delete-dups
+                        (append existing-paths gcc-paths clt-paths))))
+
+    (setenv "LIBRARY_PATH" (mapconcat #'identity unique-paths ":"))))
+
+;; Set up library paths for native compilation on macOS.
+(when (eq system-type 'darwin)
+  (setup-macos-native-comp-library-paths))
+</pre>
+</div>
+</div>
+</li>
+<li><a id="org3dc2db6"></a>Add system path to emacs exec-path<br />
+<div class="outline-text-5" id="text-1-2-6-2">
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package exec-path-from-shell
+  :init
+  :hook
+  (after-init . exec-path-from-shell-initialize))
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org5666652" class="outline-3">
+<h3 id="org5666652"><span class="section-number-3">1.3.</span> Reduce clutter</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Keep <code>~/.emacs.d/</code> clean using the <a href="https://github.com/emacscollective/no-littering"><code>no-littering</code></a> package.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package no-littering
+  :config
+  (no-littering-theme-backups))
+</pre>
+</div>
+
+<p>
+Use a dedicated file for Emacs customizations.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file 'noerror)
+</pre>
+</div>
+
+<p>
+Move native compilation cache into <code>/var</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(when (and (fboundp 'startup-redirect-eln-cache)
+           (fboundp 'native-comp-available-p)
+           (native-comp-available-p))
+  (startup-redirect-eln-cache
+   (convert-standard-filename
+    (expand-file-name  "var/eln-cache/" user-emacs-directory))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgbe2bdc4" class="outline-3">
+<h3 id="orgbe2bdc4"><span class="section-number-3">1.4.</span> Activate <code>recentf</code>, <code>savehist</code>, <code>saveplace</code>, and <code>auto-revert</code></h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+This code activate preconfigured packages by <code>minimal-emacs.d</code> <code>init.el</code>. (<a href="https://github.com/jamescherti/minimal-emacs.d?tab=readme-ov-file#how-to-activate-recentf-savehist-saveplace-and-auto-revert">source</a>)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(add-hook 'after-init-hook #'global-auto-revert-mode)
+(add-hook 'after-init-hook #'recentf-mode)
+(add-hook 'after-init-hook #'savehist-mode)
+(add-hook 'after-init-hook #'save-place-mode)
+</pre>
+</div>
+
+<p>
+Ignore the <code>no-littering</code> var files from <code>recentf</code>, but only after the package has been loaded.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(add-hook 'recentf-mode-hook
+          (lambda ()
+            (add-to-list 'recentf-exclude
+                         (recentf-expand-file-name no-littering-var-directory))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org7c69ab9" class="outline-3">
+<h3 id="org7c69ab9"><span class="section-number-3">1.5.</span> dir-config.el for Local configs</h3>
+<div class="outline-text-3" id="text-1-5">
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package dir-config
+  :custom
+  (dir-config-file-names '(".dir-config.el"))
+  (dir-config-allowed-directories '("~/Development" "~/Documents"))
+  :config
+  (dir-config-mode))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org461e12b" class="outline-2">
+<h2 id="org461e12b"><span class="section-number-2">2.</span> Look and Feel</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orge477b3e" class="outline-3">
+<h3 id="orge477b3e"><span class="section-number-3">2.1.</span> ultra-scroll</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+<a href="https://github.com/jdtsmith/ultra-scroll">Scroll emacs like lightning</a> ⚡🖱️⚡
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package ultra-scroll
+  :vc (:url "https://github.com/jdtsmith/ultra-scroll" :branch "main")
+  :init
+  (setq scroll-conservatively 101 ; important!
+        scroll-margin 0)
+  :config
+  (ultra-scroll-mode 1))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1edcbbf" class="outline-3">
+<h3 id="org1edcbbf"><span class="section-number-3">2.2.</span> Theming</h3>
+<div class="outline-text-3" id="text-2-2">
+</div>
+<div id="outline-container-org5c2d436" class="outline-4">
+<h4 id="org5c2d436"><span class="section-number-4">2.2.1.</span> the wonderful kanagawa themes</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<p>
+The excellent <a href="https://github.com/rebelot/kanagawa.nvim">kanagawa.nvim</a> theme ported to emacs.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package kanagawa-themes
+  :config
+  (load-theme 'kanagawa-wave))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org74f42b9" class="outline-4">
+<h4 id="org74f42b9"><span class="section-number-4">2.2.2.</span> auto switch between light and dark modes</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package auto-dark
+  :custom
+  (auto-dark-themes '((kanagawa-wave) (kanagawa-lotus)))
+  :init
+  (auto-dark-mode))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org5f253c1" class="outline-3">
+<h3 id="org5f253c1"><span class="section-number-3">2.3.</span> Fonts</h3>
+<div class="outline-text-3" id="text-2-3">
+</div>
+<div id="outline-container-org51d6b6c" class="outline-4">
+<h4 id="org51d6b6c"><span class="section-number-4">2.3.1.</span> Font bootstrapping</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<div class="org-src-container">
+<pre class="src src-elisp">  (defun jj/setup-font-faces ()
+  "Setup all font faces."
+  (when (display-graphic-p)
+    (let ((mono-spaced "VictorMono Nerd Font")
+          (prop-spaced "iA Writer Duo S"))
+      (set-face-attribute 'default nil :family mono-spaced :height 190)
+      (set-face-attribute 'fixed-pitch nil :family mono-spaced :height 1.0)
+      (set-face-attribute 'variable-pitch nil :family prop-spaced :height 0.8))
+    (with-eval-after-load 'org
+      (dolist (face '((org-level-1 . 1.3)
+                      (org-level-2 . 1.25)
+                      (org-level-3 . 1.20)
+                      (org-level-4 . 1.15)
+                      (org-level-5 . 1.10)
+                      (org-level-6 . 1.05)
+                      (org-level-7 . 1.0)
+                      (org-level-8 . 1.0)))
+        (set-face-attribute (car face) nil :font "iA Writer Duo S" :weight 'regular :height (cdr face))
+        )
+      (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+      (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+      (set-face-attribute 'org-table nil   :inherit '(shadow fixed-pitch))
+      (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+      (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+      (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+      (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+      )
+    )
+  )
+(add-hook 'after-init-hook 'jj/setup-font-faces)
+(add-hook 'server-after-make-frame-hook 'jj/setup-font-faces)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc86a78a" class="outline-4">
+<h4 id="orgc86a78a"><span class="section-number-4">2.3.2.</span> Mixed pitch</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package mixed-pitch
+  :hook
+  (text-mode . mixed-pitch-mode))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org8e06500" class="outline-3">
+<h3 id="org8e06500"><span class="section-number-3">2.4.</span> Highlight Comment Annotations</h3>
+<div class="outline-text-3" id="text-2-4">
+<div class="org-src-container">
+<pre class="src src-elisp">(defun fx/highlight-todo-keywords ()
+  "Add custom keywords for highlighting TODOs and similar annotations."
+  (font-lock-add-keywords nil '(("\\&lt;\\(TODO\\|FIXME\\|BUG\\|HACK\\|NOTE\\|REVIEW\\|DEPRECATED\\):" 1 font-lock-warning-face t))))
+(add-hook 'prog-mode-hook 'fx/highlight-todo-keywords)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org55037ba" class="outline-3">
+<h3 id="org55037ba"><span class="section-number-3">2.5.</span> Keep window sizes reasonable</h3>
+<div class="outline-text-3" id="text-2-5">
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package golden-ratio
+  :diminish golden-ratio-mode
+  :init
+  (golden-ratio-mode 1)
+  :custom
+  (golden-ratio-auto-scale t))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8f2cb5a" class="outline-3">
+<h3 id="org8f2cb5a"><span class="section-number-3">2.6.</span> Cursor settings</h3>
+<div class="outline-text-3" id="text-2-6">
+</div>
+<div id="outline-container-orgc2f0bc9" class="outline-4">
+<h4 id="orgc2f0bc9"><span class="section-number-4">2.6.1.</span> Adaptive cursor width</h4>
+<div class="outline-text-4" id="text-2-6-1">
+<p>
+<a href="https://pragmaticemacs.wordpress.com/2017/10/01/adaptive-cursor-width/">Adaptive cursor width</a>: make cursor the width of the character it is under. i.e. full width of a TAB.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(setq x-stretch-cursor t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf679181" class="outline-4">
+<h4 id="orgf679181"><span class="section-number-4">2.6.2.</span> Box cursor</h4>
+<div class="outline-text-4" id="text-2-6-2">
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package emacs
+  :commands jj/cursor-type-mode
+  :config
+  (setq-default cursor-type 'box)
+  (setq-default cursor-in-non-selected-windows '(bar . 2))
+  (setq-default blink-cursor-blinks 50)
+  (setq-default blink-cursor-interval 0.75)
+  (setq-default blink-cursor-delay 0.2)
+
+  (blink-cursor-mode -1)
+
+  (define-minor-mode jj/cursor-type-mode
+    "Toggle between static block and pulsing bar cursor."
+    :init-value nil
+    :global t
+    (if prot/cursor-type-mode
+        (progn
+          (setq-local blink-cursor-interval 0.75
+                      cursor-type '(bar . 2)
+                      cursor-in-non-selected-windows 'hollow)
+          (blink-cursor-mode 1))
+      (dolist (local '(blink-cursor-interval
+                       cursor-type
+                       cursor-in-non-selected-windows))
+        (kill-local-variable `,local))
+      (blink-cursor-mode -1))))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org90d7f26" class="outline-3">
+<h3 id="org90d7f26"><span class="section-number-3">2.7.</span> Line numbers</h3>
+<div class="outline-text-3" id="text-2-7">
+<p>
+Display line numbers in programming mode.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(setopt display-line-numbers-width 3)           ; Set a minimum width
+(setopt display-line-numbers-type 'relative)    ; Relative line numbers
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf26f3c7" class="outline-3">
+<h3 id="orgf26f3c7"><span class="section-number-3">2.8.</span> Text wrapping</h3>
+<div class="outline-text-3" id="text-2-8">
+<p>
+Nice line wrapping when working with text. (Bedrock Emacs)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(add-hook 'text-mode-hook 'visual-line-mode)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc746a06" class="outline-3">
+<h3 id="orgc746a06"><span class="section-number-3">2.9.</span> Highlight line</h3>
+<div class="outline-text-3" id="text-2-9">
+<p>
+Modes to highlight the current line with.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(let ((hl-line-hooks '(text-mode-hook prog-mode-hook)))
+  (mapc (lambda (hook) (add-hook hook 'hl-line-mode)) hl-line-hooks))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2a7cd7c" class="outline-3">
+<h3 id="org2a7cd7c"><span class="section-number-3">2.10.</span> Underlines</h3>
+<div class="outline-text-3" id="text-2-10">
+<p>
+Prettier underlines from Bedrock Emacs
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(setopt x-underline-at-descent-line nil)
+</pre>
+</div>
+
+<p>
+By default, do underline trailing spaces from Bedrock Emacs
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(setopt show-trailing-whitespace t)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org1a720b6" class="outline-2">
+<h2 id="org1a720b6"><span class="section-number-2">3.</span> Interface</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orga1c6559" class="outline-3">
+<h3 id="orga1c6559"><span class="section-number-3">3.1.</span> Use ibuffer instead of list-buffers</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+<code>ibuffer</code> is <code>list-buffers</code>'s bigger brother from Mastering Emacs.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(global-set-key [remap list-buffers] 'ibuffer)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0a41685" class="outline-3">
+<h3 id="org0a41685"><span class="section-number-3">3.2.</span> Always use <code>y</code> and <code>n</code> as answers.</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+<code>yes-or-no-p</code> will use <code>y-or-n-p</code>. No more typing <code>yes</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(setopt use-short-answers t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org70cafd4" class="outline-3">
+<h3 id="org70cafd4"><span class="section-number-3">3.3.</span> Make C-g a bit more helpful</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Copied from Prot's <a href="https://protesilaos.com/codelog/2024-11-28-basic-emacs-configuration/#h:1e468b2a-9bee-4571-8454-e3f5462d9321">basic and capable configuration</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(defun prot/keyboard-quit-dwim ()
+  "Do-What-I-Mean behaviour for a general `keyboard-quit'.
+
+The generic `keyboard-quit' does not do the expected thing when
+the minibuffer is open.  Whereas we want it to close the
+minibuffer, even without explicitly focusing it.
+
+The DWIM behaviour of this command is as follows:
+
+- When the region is active, disable it.
+- When a minibuffer is open, but not focused, close the minibuffer.
+- When the Completions buffer is selected, close it.
+- In every other case use the regular `keyboard-quit'."
+  (interactive)
+  (cond
+   ((region-active-p)
+    (keyboard-quit))
+   ((derived-mode-p 'completion-list-mode)
+    (delete-completion-window))
+   ((&gt; (minibuffer-depth) 0)
+    (abort-recursive-edit))
+   (t
+    (keyboard-quit))))
+
+(global-set-key [remap keyboard-quit] 'prot/keyboard-quit-dwim)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org58a15e5" class="outline-3">
+<h3 id="org58a15e5"><span class="section-number-3">3.4.</span> Which-Key</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+Show a popup of available keybindings when typing a key sequence.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package which-key
+  :config
+  (which-key-mode))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org782aa5b" class="outline-3">
+<h3 id="org782aa5b"><span class="section-number-3">3.5.</span> Interactive Do</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+Enable ido-mode
+</p>
+
+<p>
+#+begin<sub>src</sub> elisp :tangle post-init.el
+(setq ido-enable-flex-matching t)
+(setq ido-doeverywhere t)
+(ido-mode 1)
+</p>
+</div>
+</div>
+<div id="outline-container-org10fcdec" class="outline-3">
+<h3 id="org10fcdec"><span class="section-number-3">3.6.</span> Org-mode customizations</h3>
+<div class="outline-text-3" id="text-3-6">
+</div>
+<div id="outline-container-org3467d6a" class="outline-4">
+<h4 id="org3467d6a"><span class="section-number-4">3.6.1.</span> Setup and bindings</h4>
+<div class="outline-text-4" id="text-3-6-1">
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package org
+  :ensure t
+  :commands (org-mode org-version)
+  :mode
+  ("\\.org\\'" . org-mode)
+  :custom
+  (org-startup-truncated t)
+  (org-agenda-files (list "~/Documents/Org/agenda.org"))
+  (org-export-backends '(md))
+  :bind (("C-c a" . org-agenda)
+         ("C-c l" . org-store-link)
+         ("C-c b" . org-iswitchb)))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge0794bc" class="outline-4">
+<h4 id="orge0794bc"><span class="section-number-4">3.6.2.</span> Distraction free writing</h4>
+<div class="outline-text-4" id="text-3-6-2">
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package darkroom
+  :bind ("C-c d r" . darkroom-tentative-mode))
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org6254290" class="outline-2">
+<h2 id="org6254290"><span class="section-number-2">4.</span> Development/Workspace</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orgd5e1833" class="outline-3">
+<h3 id="orgd5e1833"><span class="section-number-3">4.1.</span> Magit</h3>
+<div class="outline-text-3" id="text-4-1">
+</div>
+<div id="outline-container-org8aea174" class="outline-4">
+<h4 id="org8aea174"><span class="section-number-4">4.1.1.</span> Usage and configs</h4>
+<div class="outline-text-4" id="text-4-1-1">
+<p>
+Enable and use the excellent magit
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package magit
+  :bind (("C-c m s" . magit-status))
+  :custom
+  ;; Improve readability of diffs
+  (magit-diff-refine-hunk 'all))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org7a6895e" class="outline-4">
+<h4 id="org7a6895e"><span class="section-number-4">4.1.2.</span> MacOS speedup</h4>
+<div class="outline-text-4" id="text-4-1-2">
+<p>
+Speed up magit on macos
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package magit
+  :if (eq system-type 'darwin)
+  :custom
+  (magit-git-executable "/opt/homebrew/bin/git"))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb7fd166" class="outline-4">
+<h4 id="orgb7fd166"><span class="section-number-4">4.1.3.</span> Highlight diffs in files</h4>
+<div class="outline-text-4" id="text-4-1-3">
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package diff-hl
+  :hook ((prog-mode . diff-hl-mode)
+         (prog-mode . diff-hl-flydiff-mode)))
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdd3e3ee" class="outline-2">
+<h2 id="orgdd3e3ee"><span class="section-number-2">5.</span> Other</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org9352bf7" class="outline-3">
+<h3 id="org9352bf7"><span class="section-number-3">5.1.</span> Reload Init</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Helper to reload init file
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(defun reload-init-file ()
+  "Reload the user's init file."
+  (interactive)
+  (load-file user-init-file)
+  (keychain-refresh-environment))
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(native-comp-available-p)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgce9c22c" class="outline-2">
+<h2 id="orgce9c22c"><span class="section-number-2">6.</span> tangle post-init.el on save</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+;; Local Variables:
+;; eval: (add-hook 'after-save-hook (lambda () (org-babel-tangle)) nil 'make-it-local)
+;; End:
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: John Szaniszlo</p>
+<p class="date">Created: 2025-08-27 Wed 20:38</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
