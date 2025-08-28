@@ -1,0 +1,153 @@
+#+TITLE: Emacs Configuration
+#+AUTHOR: John Szaniszlo
+
+Based on the [[https://github.com/jamescherti/minimal-emacs.d/][minimal-emacs.d]] project by James Cherti.
+
+* Basic Settings
+** Init files at various init points
+
+Prevent config files from being byte-compiled and to activate lexical binding as [[https://github.com/jamescherti/minimal-emacs.d?tab=readme-ov-file#customizations-never-modify-initel-and-early-initel-modify-these-instead][required by minimal-emacs.d]]:
+
+#+BEGIN_SRC emacs-lisp :tangle pre-early-init.el
+  ;;; pre-early-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle post-early-init.el
+  ;;; post-early-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle post-init.el
+  ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
+#+END_SRC
+** System
+*** Debugging
+
+#+begin_src emacs-lisp :tangle pre-early-init.el
+  (defvar minimal-emacs-debug nil
+    "Non-nil to enable debug.")
+#+end_src
+
+*** Display startup time
+
+Report the startup duration and the number of garbage collections that occurred during initialization.
+
+#+begin_src emacs-lisp :tangle pre-early-init.el
+(defun display-startup-time ()
+  "Display the startup time and number of garbage collections."
+  (message "Emacs init loaded in %.2f seconds (Full emacs-startup: %.2fs) with %d garbage collections."
+           (float-time (time-subtract after-init-time before-init-time))
+           (time-to-seconds (time-since before-init-time))
+           gcs-done))
+
+(add-hook 'emacs-startup-hook #'display-startup-time 100)
+#+end_src
+*** ~PATH~
+**** MacOS specific path fix for libgccjit
+Fix for [[https://github.com/d12frosted/homebrew-emacs-plus/issues/733][libgccjit.so error invoking gcc driver]] on MacOS homebrew installations
+
+#+begin_src emacs-lisp :tangle pre-early-init.el
+  (defun homebrew-gcc-paths ()
+    "Return GCC library paths from Homebrew installations.
+  Detects paths for gcc and libgccjit packages to be used in LIBRARY_PATH."
+    (let* ((paths '())
+           (brew-bin (or (executable-find "brew")
+                         (let ((arm-path "/opt/homebrew/bin/brew")
+                               (intel-path "/usr/local/bin/brew"))
+                           (cond
+                            ((file-exists-p arm-path) arm-path)
+                            ((file-exists-p intel-path) intel-path))))))
+
+      (when brew-bin
+        ;; Get gcc paths.
+        (let* ((gcc-prefix (string-trim
+                            (shell-command-to-string
+                             (concat brew-bin " --prefix gcc"))))
+               (gcc-lib-current (expand-file-name "lib/gcc/current" gcc-prefix)))
+          (push gcc-lib-current paths)
+
+          ;; Find apple-darwin directory.
+          (let* ((default-directory gcc-lib-current)
+                 (arch-dirs (file-expand-wildcards "gcc/*-apple-darwin*/*[0-9]")))
+            (when arch-dirs
+              (push (expand-file-name
+                     (car (sort arch-dirs #'string>)))
+                    paths))))
+
+        ;; Get libgccjit paths
+        (let* ((jit-prefix (string-trim
+                            (shell-command-to-string
+                             (concat brew-bin " --prefix libgccjit"))))
+               (jit-lib-current (expand-file-name "lib/gcc/current" jit-prefix)))
+          (push jit-lib-current paths)))
+
+      (nreverse paths)))
+
+  (defun setup-macos-native-comp-library-paths ()
+    "Set up LIBRARY_PATH for native compilation on macOS.
+  Includes Homebrew GCC paths and CommandLineTools SDK libraries."
+    (let* ((existing-paths (split-string (or (getenv "LIBRARY_PATH") "") ":" t))
+           (gcc-paths (homebrew-gcc-paths))
+           (clt-paths '("/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib"))
+           (unique-paths (delete-dups
+                          (append existing-paths gcc-paths clt-paths))))
+
+      (setenv "LIBRARY_PATH" (mapconcat #'identity unique-paths ":"))))
+
+  ;; Set up library paths for native compilation on macOS.
+  (when (eq system-type 'darwin)
+    (setup-macos-native-comp-library-paths))
+#+end_src
+**** Add system path to emacs exec-path
+#+begin_src elisp :tangle post-init.el
+  (use-package exec-path-from-shell
+    :init
+    :hook
+    (after-init . exec-path-from-shell-initialize))
+#+end_src
+** Reduce clutter
+
+Keep ~~/.emacs.d/~ clean using the [[https://github.com/emacscollective/no-littering][~no-littering~]] package.
+
+#+begin_src elisp :tangle post-init.el
+  (use-package no-littering
+    :config
+    (no-littering-theme-backups))
+#+end_src
+
+Use a dedicated file for Emacs customizations.
+
+#+begin_src emacs-lisp :tangle post-init.el
+  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+  (load custom-file 'noerror)
+#+end_src
+
+Move native compilation cache into ~/var~.
+
+#+begin_src emacs-lisp :tangle post-early-init.el
+  (when (and (fboundp 'startup-redirect-eln-cache)
+             (fboundp 'native-comp-available-p)
+             (native-comp-available-p))
+    (startup-redirect-eln-cache
+     (convert-standard-filename
+      (expand-file-name  "var/eln-cache/" user-emacs-directory))))
+#+end_src
+
+** Activate ~recentf~, ~savehist~, ~saveplace~, and ~auto-revert~
+
+This code activate preconfigured packages by =minimal-emacs.d= ~init.el~. ([[https://github.com/jamescherti/minimal-emacs.d?tab=readme-ov-file#how-to-activate-recentf-savehist-saveplace-and-auto-revert][source]])
+
+#+begin_src emacs-lisp :tangle post-init.el
+  (add-hook 'after-init-hook #'global-auto-revert-mode)
+  (add-hook 'after-init-hook #'recentf-mode)
+  (add-hook 'after-init-hook #'savehist-mode)
+  (add-hook 'after-init-hook #'save-place-mode)
+#+end_src
+
+Ignore the ~no-littering~ var files from ~recentf~, but only after the package has been loaded.
+
+#+begin_src emacs-lisp :tangle post-init.el
+  (add-hook 'recentf-mode-hook
+            (lambda ()
+              (add-to-list 'recentf-exclude
+                           (recentf-expand-file-name no-littering-var-directory))))
+#+end_src
