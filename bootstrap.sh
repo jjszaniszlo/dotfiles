@@ -29,7 +29,8 @@ if [ "$OS" == "Linux" ]; then
 fi
 
 echo "Stowing Emacs...";
-stow emacs;
+mkdir -p $HOME/.emacs.d
+stow emacs -t $HOME/.emacs.d/;
 
 echo "Stowing Git...";
 stow git;
