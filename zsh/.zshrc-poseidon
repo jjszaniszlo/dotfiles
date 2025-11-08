@@ -6,3 +6,5 @@ if type brew &>/dev/null; then
     autoload -Uz compinit
     compinit
 fi
+
+[[ ! -r '/Users/jjszaniszlo/.opam/opam-init/init.zsh' ]] || source '/Users/jjszaniszlo/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null

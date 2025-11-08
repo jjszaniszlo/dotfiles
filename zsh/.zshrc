@@ -20,11 +20,6 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH="$PATH:$HOME/.local/bin"
 
-alias emacs='emacs_client_one_frame.sh'
-alias ec='emacsclient -t'
-
-export VISUAL="emacsclient -t"
-
 # required for vterm in emacs
 vterm_printf() {
     if [ -n "$TMUX" ] \

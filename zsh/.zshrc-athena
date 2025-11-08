@@ -23,3 +23,8 @@ if [ -z "${GODOT:-}" ]; then  # If variable not defined or empty.
 fi
 
 . "$HOME/.cargo/env"
+
+alias emacs='emacs_client_one_frame.sh'
+alias ec='emacsclient -t'
+
+export VISUAL="emacsclient -t"

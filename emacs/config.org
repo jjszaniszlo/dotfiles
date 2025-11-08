@@ -479,6 +479,17 @@ Enable ido-mode
     :bind ("C-c d r" . darkroom-tentative-mode))
 #+end_src
 
+*** Org Babel
+
+#+begin_src elisp :tangle post-init.el
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (python . t)))
+
+  (setq org-babel-python-command "python3")
+#+end_src
+
 * Development/Workspace
 ** Magit
 *** Usage and configs

@@ -211,6 +211,13 @@ The DWIM behaviour of this command is as follows:
 (use-package darkroom
   :bind ("C-c d r" . darkroom-tentative-mode))
 
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (python . t)))
+
+(setq org-babel-python-command "python3")
+
 (use-package magit
   :bind (("C-c m s" . magit-status))
   :custom
