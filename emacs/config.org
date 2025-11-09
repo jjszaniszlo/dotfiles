@@ -194,7 +194,7 @@ Ignore the ~no-littering~ var files from ~recentf~, but only after the package h
   (use-package dir-config
     :custom
     (dir-config-file-names '(".dir-config.el"))
-    (dir-config-allowed-directories '("~/Development" "~/Documents"))
+    (dir-config-allowed-directories '("~/Development" "~/Documents" "~/SchoolProjects"))
     :config
     (dir-config-mode))
 #+end_src
@@ -472,6 +472,16 @@ Enable ido-mode
            ("C-c b" . org-iswitchb)))
 #+end_src
 
+*** Babel
+
+#+begin_src elisp :tangle post-init.el
+  (setq haskell-process-type 'stack-ghci)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((haskell . t)
+     (python . t)))
+#+end_src
+
 *** Distraction free writing
 
 #+begin_src elisp :tangle post-init.el
@@ -491,6 +501,13 @@ Enable ido-mode
 #+end_src
 
 * Development/Workspace
+** LaTeX
+
+#+begin_src elisp :tangle post-init.el
+  (use-package auctex)
+  (use-package latex-preview-pane)
+#+end_src
+
 ** Magit
 *** Usage and configs
 Enable and use the excellent magit
@@ -521,8 +538,8 @@ Speed up magit on macos
            (prog-mode . diff-hl-flydiff-mode)))
 #+end_src
 
-*** Language Modes
-**** Odin-lang Mode
+** Language Modes
+*** Odin-lang Mode
 
 #+begin_src elisp :tangle post-init.el
   (unless (package-installed-p 'odin-mode)
@@ -532,6 +549,12 @@ Speed up magit on macos
   	      ("C-c C-r" . 'odin-run-project)
   	      ("C-c C-c" . 'odin-build-project)
   	      ("C-c C-t" . 'odin-test-project)))
+#+end_src
+
+*** Haskell Mode
+
+#+begin_src elisp :tangle post-init.el
+  (use-package haskell-mode)
 #+end_src
 
 * Other

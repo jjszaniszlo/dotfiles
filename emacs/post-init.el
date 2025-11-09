@@ -45,7 +45,7 @@
 (use-package dir-config
   :custom
   (dir-config-file-names '(".dir-config.el"))
-  (dir-config-allowed-directories '("~/Development" "~/Documents"))
+  (dir-config-allowed-directories '("~/Development" "~/Documents" "~/SchoolProjects"))
   :config
   (dir-config-mode))
 
@@ -208,6 +208,12 @@ The DWIM behaviour of this command is as follows:
          ("C-c l" . org-store-link)
          ("C-c b" . org-iswitchb)))
 
+(setq haskell-process-type 'stack-ghci)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((haskell . t)
+   (python . t)))
+
 (use-package darkroom
   :bind ("C-c d r" . darkroom-tentative-mode))
 
@@ -240,6 +246,8 @@ The DWIM behaviour of this command is as follows:
 	      ("C-c C-r" . 'odin-run-project)
 	      ("C-c C-c" . 'odin-build-project)
 	      ("C-c C-t" . 'odin-test-project)))
+
+(use-package haskell-mode)
 
 (defun reload-init-file ()
   "Reload the user's init file."
