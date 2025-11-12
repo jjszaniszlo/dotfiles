@@ -1,0 +1,2 @@
+/home/jjszaniszlo/WorkDevelopment/domains/frontend-monorepo
+/home/jjszaniszlo/WorkDevelopment/domains/backend

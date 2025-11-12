@@ -39,9 +39,12 @@ fi
 echo "Stowing Git...";
 stow git;
 
-echo "Stowing Ghostty..."
-mkdir -p $HOME/.config/ghostty
-stow ghostty -t $HOME/.config/ghostty
+echo "Stowing Ghostty...";
+mkdir -p $HOME/.config/ghostty;
+stow ghostty -t $HOME/.config/ghostty;
+
+echo "Stowing tmux...";
+stow tmux;
 
 echo "Stowing Vim...";
 stow vim;

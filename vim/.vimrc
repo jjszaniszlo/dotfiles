@@ -4,20 +4,28 @@ call plug#begin()
 Plug 'menisadi/kanagawa.vim'
 Plug 'tribela/vim-transparent'
 
+Plug 'igemnace/vim-makery'
+
 Plug 'tpope/vim-sensible'
-Plug 'airblade/vim-rooter'
-Plug 'editorconfig/editorconfig-vim'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-dispatch'
 
 call plug#end()
 
 " clipboard
-set clipboard^=unnamed,unnamedplus
+if has('clipboard')
+  set clipboard^=unnamed,unnamedplus
+endif
+
+" wayland clipboard mappings
+xnoremap <silent> <leader>y :w !wl-copy<CR><CR>
+nnoremap <silent> <leader>p :r !wl-paste<CR>
 
 " netrw
 let g:netrw_banner = 0
 let g:netrw_fastbrowse = 0
 let g:netrw_localcopydircmd = 'cp -r'
-let g:netrw_winsize = 30
+let g:netrw_winsize = -30
 
 nnoremap <Leader>n :Lexplore<CR>
 
@@ -26,15 +34,9 @@ augroup netrw
   autocmd FileType netrw setlocal bufhidden=wipe
 augroup end
 
-" rooter
-let g:rooter_targets = ['/', '/home/*']
-let g:rooter_patterns = ['.editorconfig']
-
 " text, tab and indent
 set expandtab
-
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
 
 set lbr
 set tw=500
@@ -48,6 +50,9 @@ set lazyredraw
 set magic
 set encoding=utf8
 set ffs=unix,dos,mac
+
+" tags
+set tags=tags
 
 " last edit position on file open
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -91,14 +96,48 @@ set nowb
 set noswapfile
 
 " use ripgrep
-set grepprg=rg\ --vimgrep
-set grepformat=%f:%l:%c:%m
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+  set grepformat^=%f:%l:%c:%m
+endif
 
 " KEYS
+
+" quickfix list
+nnoremap <leader>co :copen<CR>
+nnoremap <leader>cc :cclose<CR>
+nnoremap <leader>cn :cnext<CR>
+nnoremap <leader>cp :cprevious<CR>
+nnoremap <leader>cf :cfirst<CR>
+nnoremap <leader>cl :clast<CR>
+
+nnoremap <leader>f :call FormatFile()<CR>
 
 " buffer closing
 map <leader>bd :Bclose<cr>:tabclose<cr>gT
 map <leader>ba :bufdo bd<cr>
+
+" tab management
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+
+" Opens a new tab with the current buffer's path
+map <leader>te :tabedit <C-r>=escape(expand("%:p:h"), " ")<cr>/
+
+" misc
+
+" format entire file
+function! FormatFile()
+  if &filetype == 'python'
+    execute '%!uvx ruff format -'
+  elseif &filetype =~ 'javascript\|typescript'
+    execute '%!npx prettier --stdin-filepath %'
+  else
+    echo "No formatter configured for filetype: " . &filetype
+  endif
+endfunction
 
 " don't close window when deleting a buffer.
 command! Bclose call <SID>BufcloseCloseIt()
@@ -121,31 +160,3 @@ function! <SID>BufcloseCloseIt()
     endif
 endfunction
 
-" tab management
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-" Opens a new tab with the current buffer's path
-map <leader>te :tabedit <C-r>=escape(expand("%:p:h"), " ")<cr>/
-
-" search for current selection in visual mode
-vnoremap <silent> * :call VisualSelection('', '')<CR>
-vnoremap <silent> # :call VisualSelection('', '')<CR>
-
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'gv'
-        call CmdLine("Ack '" . l:pattern . "' " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
