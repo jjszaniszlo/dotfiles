@@ -5,12 +5,14 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="gnzh"
 
 plugins=(
+    aliases
     git
     git-commit
     git-auto-fetch
     you-should-use
     zsh-autosuggestions
     zsh-bat
+    zsh-eza
     zsh-syntax-highlighting
 )
 
@@ -47,15 +49,3 @@ case "$(hostname)" in
         # Default settings for all other machines
         ;;
 esac
-
-alias gcl='git commit -m "$(git diff HEAD | claude -p "write a conventional commit message (feat/fix/docs/style/refactor) with scope.  Do not give me multiple options and just output the message directly.")" -e'
-searchpro() {
-    cmd=$(llm -s "generate the most efficient search command for: $1")
-    echo "Generated command: $cmd"
-    read -p "Execute? [y/N] " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        eval "$cmd"
-    fi
-}

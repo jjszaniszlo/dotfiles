@@ -5,3 +5,5 @@ background-opacity = 0.9
 
 gtk-titlebar = false
 gtk-tabs-location = hidden
+
+shell-integration = zsh

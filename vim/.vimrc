@@ -4,6 +4,8 @@ call plug#begin()
 Plug 'menisadi/kanagawa.vim'
 Plug 'tribela/vim-transparent'
 
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'igemnace/vim-makery'
 
 Plug 'tpope/vim-sensible'
@@ -111,7 +113,11 @@ nnoremap <leader>cp :cprevious<CR>
 nnoremap <leader>cf :cfirst<CR>
 nnoremap <leader>cl :clast<CR>
 
-nnoremap <leader>f :call FormatFile()<CR>
+" fzf
+nnoremap <leader>ff :FZF<CR>
+nnoremap <leader>fg :Ag<CR>
+nnoremap <leader>ft :Tags<CR>
+nnoremap <leader>fb :BTags<CR>
 
 " buffer closing
 map <leader>bd :Bclose<cr>:tabclose<cr>gT
@@ -127,18 +133,6 @@ map <leader>tm :tabmove
 map <leader>te :tabedit <C-r>=escape(expand("%:p:h"), " ")<cr>/
 
 " misc
-
-" format entire file
-function! FormatFile()
-  if &filetype == 'python'
-    execute '%!uvx ruff format -'
-  elseif &filetype =~ 'javascript\|typescript'
-    execute '%!npx prettier --stdin-filepath %'
-  else
-    echo "No formatter configured for filetype: " . &filetype
-  endif
-endfunction
-
 " don't close window when deleting a buffer.
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
@@ -159,4 +153,12 @@ function! <SID>BufcloseCloseIt()
         execute("bdelete! ".l:currentBufNum)
     endif
 endfunction
+
+" fzf config
+
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+let g:fzf_layout = { 'down': '40%' }
+let g:fzf_vim = {}
+let g:fzf_vim.preview_window = []
+let g:fzf_vim.tags_command = 'ctags -R'
 
