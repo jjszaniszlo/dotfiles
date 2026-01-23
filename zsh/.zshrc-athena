@@ -4,6 +4,8 @@ export PATH="$PATH:/home/jjszaniszlo/.local/share/JetBrains/Toolbox/scripts"
 export PATH=${PATH}:`go env GOPATH`/bin
 export ODIN_ROOT="$HOME/odin/odin-nightly+2025-07-15"
 
+export ENABLE_LSP_TOOL=1
+
 export DOTNET_CLI_TELEMETRY_OPTOUT=1 # Disable analytics
 export DOTNET_ROLL_FORWARD_TO_PRERELEASE=1
 
