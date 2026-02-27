@@ -49,3 +49,21 @@ case "$(hostname)" in
         # Default settings for all other machines
         ;;
 esac
+
+# opencode
+export PATH=/home/jjszaniszlo/.opencode/bin:$PATH
+
+# pnpm
+export PNPM_HOME="/home/jjszaniszlo/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# bun completions
+[ -s "/home/jjszaniszlo/.bun/_bun" ] && source "/home/jjszaniszlo/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

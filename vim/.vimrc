@@ -4,8 +4,8 @@ call plug#begin()
 Plug 'menisadi/kanagawa.vim'
 Plug 'tribela/vim-transparent'
 
-Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf'
 Plug 'igemnace/vim-makery'
 
 Plug 'tpope/vim-sensible'
@@ -122,7 +122,7 @@ nnoremap <leader>fg :Ag<CR>
 nnoremap <leader>ft :Tags<CR>
 nnoremap <leader>fb :BTags<CR>
 
-" buffer closing
+" buffer
 map <leader>bd :Bclose<cr>:tabclose<cr>gT
 map <leader>ba :bufdo bd<cr>
 
@@ -132,11 +132,11 @@ map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 
-" Opens a new tab with the current buffer's path
+" Opens a file in a new tab with the current buffer's path
 map <leader>te :tabedit <C-r>=escape(expand("%:p:h"), " ")<cr>/
 
 " misc
-" don't close window when deleting a buffer.
+" don't close window when deleting/closing a buffer.
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
     let l:currentBufNum = bufnr("%")

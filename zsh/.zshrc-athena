@@ -1,15 +1,5 @@
-# Desktop Linux specific zsh
-
-export PATH="$PATH:/home/jjszaniszlo/.local/share/JetBrains/Toolbox/scripts"
-export PATH=${PATH}:`go env GOPATH`/bin
-export ODIN_ROOT="$HOME/odin/odin-nightly+2025-07-15"
-
-export ENABLE_LSP_TOOL=1
-
-export DOTNET_CLI_TELEMETRY_OPTOUT=1 # Disable analytics
-export DOTNET_ROLL_FORWARD_TO_PRERELEASE=1
-
-alias nugetclean="dotnet nuget locals --clear all"
+export PATH="$PATH:/home/jjszaniszlo/.cargo/bin"
+export PATH="$PATH:$HOME/.dotnet/tools"
 
 case ":${PATH}:" in
     *:"$HOME/.config/godotenv/godot/bin":*)
@@ -18,32 +8,10 @@ case ":${PATH}:" in
         # Prepending path making it the highest in priority.
         export PATH="$HOME/.config/godotenv/godot/bin:$PATH"
         ;;
-    esac
+esac
 
 if [ -z "${GODOT:-}" ]; then  # If variable not defined or empty.
     export GODOT="$HOME/.config/godotenv/godot/bin/godot"
 fi
 
-. "$HOME/.cargo/env"
-
-alias emacs='emacs_client_one_frame.sh'
-alias ec='emacsclient -t'
-
-export VISUAL="emacsclient -t"
-# BEGIN opam configuration
-# This is useful if you're using opam as it adds:
-#   - the correct directories to the PATH
-#   - auto-completion for the opam binary
-# This section can be safely removed at any time if needed.
-[[ ! -r '/home/jjszaniszlo/.opam/opam-init/init.zsh' ]] || source '/home/jjszaniszlo/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
-# END opam configuration
-
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - bash)"
-
-eval "$(pyenv virtualenv-init -)"
-
-export BW_SESSION="Rfvf0kS+YijUABVZ53tWVJUk0AHWzgO4cpJgXiEEDNPEj+D8cH9pGsxj2ATDjcu25fr7919LMhXj/JrAikT12g=="
-
-alias claude="/home/jjszaniszlo/.claude/local/claude"
+export EDITOR=vim
