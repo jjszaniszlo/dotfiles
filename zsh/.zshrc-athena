@@ -1,5 +1,6 @@
 export PATH="$PATH:/home/jjszaniszlo/.cargo/bin"
 export PATH="$PATH:$HOME/.dotnet/tools"
+export PATH="$PATH:/usr/games/"
 
 case ":${PATH}:" in
     *:"$HOME/.config/godotenv/godot/bin":*)
@@ -15,3 +16,6 @@ if [ -z "${GODOT:-}" ]; then  # If variable not defined or empty.
 fi
 
 export EDITOR=vim
+export LLAMA_CLOUD_API_KEY=llx-WaN9QdlRms355lwvQq7AoCmwEYUUOlXKbm8vRerQuKgVtuKG
+
+eval "$(direnv hook zsh)"
